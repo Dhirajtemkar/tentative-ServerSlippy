@@ -204,7 +204,6 @@ export default function OrderInfo({ route }) {
         </ScrollView>
       </View>
       <View style={styles.BottomActions}>
-        <Text>{totalUpdated}</Text>
         {route.params.orderState === "extended" ? (
           <BottomActions
             navigation={route.params.navigation}
@@ -284,7 +283,7 @@ const styles = StyleSheet.create({
     width: width,
     position: "absolute",
     bottom: 0,
-    height: width / 1.5,
+    height: width / 2,
     backgroundColor: "#FFE4E9",
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
@@ -292,6 +291,7 @@ const styles = StyleSheet.create({
     shadowColor: "grey",
     shadowRadius: 10,
     shadowOpacity: 0.5,
+    paddingTop: width / 20,
   },
   extendTit: {
     margin: 20,

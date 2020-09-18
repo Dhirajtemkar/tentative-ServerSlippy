@@ -31,6 +31,7 @@ const windowWidth = Dimensions.get("window").width;
 const Tabs = createBottomTabNavigator();
 const ServerStack = createStackNavigator();
 const ChefStack = createStackNavigator();
+const BillStack = createStackNavigator();
 const HomeStack = createStackNavigator();
 let props1;
 
@@ -72,6 +73,22 @@ const ChefStackScreen = ({ route }) => {
   );
 };
 
+const BillScreen = ({ route }) => {
+  return (
+    <BillStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <BillStack.Screen name="BillingScreen" component={BillingScreen} />
+      <BillStack.Screen
+        name="SplitAmountScreen"
+        component={SplitAmountScreen}
+      />
+    </BillStack.Navigator>
+  );
+};
+
 const MainTabScreen = ({ route }) => {
   const { isEnabled } = route.params;
   const { isEnabled1 } = route.params;
@@ -97,7 +114,7 @@ function HomeTabs({ route }) {
     <Tabs.Navigator tabBar={(props) => <MyTabBar {...props} />}>
       <Tabs.Screen name="Server" component={ServerStackScreen} />
       <Tabs.Screen name="Chef" component={ChefStackScreen} />
-      <Tabs.Screen name="Bill" component={BillingScreen} />
+      <Tabs.Screen name="Bill" component={BillScreen} />
     </Tabs.Navigator>
   );
 }
@@ -117,9 +134,9 @@ function MyTabBar({ state, descriptors, navigation }) {
     <View
       style={{
         flexDirection: "row",
-        height: windowHeight * 0.085,
+        height: windowWidth / 7,
         backgroundColor: "#ffffff",
-        elevation: 10,
+        elevation: 15,
       }}
     >
       {state.routes.map((route, index) => {

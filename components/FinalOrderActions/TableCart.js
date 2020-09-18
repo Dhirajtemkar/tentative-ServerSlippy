@@ -135,7 +135,7 @@ export default function TableCart({ route }) {
   const [callBillSplit, setcallBillSplit] = useState(false);
   const manageBottomsheet = () => {
     if (callPromo === true) {
-      setHtSheet(height - 100);
+      setHtSheet(height - 150);
       return renderPromoChange();
     } else if (callBillSplit === true) {
       setHtSheet(width / 1.5);
@@ -158,7 +158,7 @@ export default function TableCart({ route }) {
     <SafeAreaView style={styles.mainTableCart}>
       <BottomSheet
         ref={bs}
-        snapPoints={[htSheet, 0]}
+        snapPoints={[htSheet, -20]}
         renderContent={() => manageBottomsheet()}
         initialSnap={1}
         callbackNode={fall}
@@ -175,7 +175,7 @@ export default function TableCart({ route }) {
           <Text style={styles.tableNo}>Table {Order.tableNo}</Text>
         </View>
         <ScrollView
-          style={{ marginTop: 10, width: width, height: width / 1.4 }}
+          style={{ marginTop: 3, width: width, height: width / 1.3 }}
           // showsVerticalScrollIndicator={false}
         >
           {/* todo: add the dishes to be displayed on this page*/}
@@ -200,7 +200,7 @@ export default function TableCart({ route }) {
         </ScrollView>
       </View>
       <View style={styles.bottomContent}>
-        <View style={{ width: width, height: width / 1.2 }}>
+        <View style={{ width: width, height: width / 1.55 }}>
           <TouchableOpacity
             style={styles.promoBtn}
             onPress={() => {
@@ -322,7 +322,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: width,
-    height: width / 1.35,
+    height: width / 1.75,
     backgroundColor: "#F4F4F4",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: width,
-    height: width / 2.5,
+    height: width / 4,
     backgroundColor: "#FFE4E9",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
@@ -375,7 +375,7 @@ const styles = StyleSheet.create({
   },
   BottomAdd: {
     width: width,
-    height: height,
+    // height: height,
     elevation: 5,
     backgroundColor: "#fff",
     shadowColor: "grey",

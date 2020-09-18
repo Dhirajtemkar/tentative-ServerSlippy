@@ -48,7 +48,7 @@ export default function BottomActions({
           ],
         })
       );
-    } else if (orderState === "ready") {
+    } else if (orderState === "ready" || orderState === "prep") {
       // edit this function
       navigation.push("TableCart", {
         pageTitle: "Table Cart",
