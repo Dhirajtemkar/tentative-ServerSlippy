@@ -12,6 +12,7 @@ import ServerImg from "../img/server";
 import Menu from "../img/menu";
 import { CustomerOrder } from "../CustomerOrder/CustomerOrder";
 import MenuToggle from "../TopNav/MenuToggle";
+import TopNav from "../TopNav/TopNav";
 
 const Server = ({ navigation }) => {
   const [tab, setTab] = React.useState(0);
@@ -42,24 +43,85 @@ const Server = ({ navigation }) => {
   } else {
     return (
       <View style={styles.container}>
-        <View style={styles.titleContainer}>
-          <View style={styles.ContainerTwo}>
-            <MenuToggle navigation={navigation} />
-            <Text style={styles.name}>54th Ave, Marques St..</Text>
-            <View style={{ flexDirection: "row", top: 20 }}>
-              <View style={styles.titleTag}>
+        <View>
+          <View style={styles.titleContainer}>
+            <View style={styles.ContainerTwo}>
+              <TopNav navigation={navigation} />
+              <Text style={styles.name}>54th Ave, Marques St..</Text>
+              <View style={{ flexDirection: "row", top: 20 }}>
+                <View style={styles.titleTag}>
+                  <Text
+                    style={{
+                      fontFamily: "Poppins-Light",
+                      color: "#ff264d",
+                      fontSize: 19,
+                      lineHeight: 29,
+                    }}
+                  >
+                    Mike's cafe
+                  </Text>
+                </View>
+                <ServerImg style={{ left: windowWidth * 0.45 }} />
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.statusContainer}>
+            <View style={styles.tabContainer}>
+              <View
+                style={{
+                  flex: 1,
+                  backgroundColor: "#ff264d",
+                  position: "absolute",
+                  top: windowHeight * 0.005,
+                  width: width,
+                  height: windowHeight * 0.05,
+                  left: leftShift,
+                  borderRadius: 20,
+                }}
+              />
+
+              <TouchableOpacity style={styles.button} onPress={() => setTab(0)}>
                 <Text
                   style={{
                     fontFamily: "Poppins-Light",
-                    color: "#ff264d",
-                    fontSize: 19,
-                    lineHeight: 29,
+                    fontSize: 18,
+                    color: font1,
+                    textAlign: "center",
                   }}
                 >
-                  Mike's cafe
+                  Generate Bill
                 </Text>
-              </View>
-              <ServerImg style={{ left: windowWidth * 0.45 }} />
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.button} onPress={() => setTab(1)}>
+                <Text
+                  style={{
+                    fontFamily: "Poppins-Light",
+                    fontSize: 18,
+                    color: font2,
+                    textAlign: "center",
+                  }}
+                >
+                  Ready
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.stateList}>
+              {tab == 0 ? (
+                <GenBill
+                  orderDetail={CustomerOrder}
+                  navigation={navigation}
+                  pageRoutedFrom={"ServerPrep"}
+                />
+              ) : (
+                <Ready
+                  orderDetail={CustomerOrder}
+                  navigation={navigation}
+                  pageRoutedFrom={"ServerPrep"}
+                />
+              )}
             </View>
           </View>
         </View>
