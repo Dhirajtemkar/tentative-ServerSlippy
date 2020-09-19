@@ -60,7 +60,7 @@ const GenBill = ({ orderDetail, navigation, pageRoutedFrom }) => {
         <View style={styles.statusBox}>
           <View
             style={{
-              height: windowHeight * 0.12,
+              height: windowHeight * 0.1,
               width: windowWidth * 0.016,
               backgroundColor: backgroundColor,
             }}
@@ -97,68 +97,73 @@ const GenBill = ({ orderDetail, navigation, pageRoutedFrom }) => {
 };
 
 const styles = StyleSheet.create({
-  tabbContainer: {
-    flex: 1,
+  tabbContainer:{
+    flex:1,
     backgroundColor: "#ffffff",
-    height: windowHeight * 0.13,
-    borderBottomWidth: 1,
-    borderBottomColor: "#a9a9a9",
-    flexDirection: "row",
-  },
+    height:windowHeight*0.1,
+    borderBottomWidth:1,
+    borderBottomColor:'#a9a9a9',
+    flexDirection:'row'
 
-  statusBox: {
-    backgroundColor: "#ffffff",
-    alignItems: "center",
-    height: windowHeight * 0.13,
-    width: windowWidth * 0.12,
-    borderBottomWidth: 1,
-    borderBottomColor: "#a9a9a9",
-    backgroundColor: "#ffffff",
-    flexDirection: "row",
-    elevation: 12,
-  },
-  stateContainer: {
-    height: windowHeight * 0.12,
-    width: windowWidth * 0.23,
-    justifyContent: "center",
-    alignItems: "center",
-    left: -windowWidth * 0.07,
-  },
-  stateText: {
-    transform: [{ rotate: "270deg" }],
-    fontFamily: "Poppins-Light",
-    fontSize: 16,
-  },
-  numText: {
-    marginRight: windowWidth / 25,
-    fontSize: 18,
-    fontFamily: "Poppins-Light",
-  },
+},
 
-  numberContainer: {
-    position: "absolute",
-    top: windowHeight * 0.01,
-    width: windowWidth * 0.23,
+statusBox:{
     backgroundColor: "#ffffff",
-    height: windowHeight * 0.1,
-    alignItems: "flex-end",
-    justifyContent: "center",
-    borderBottomRightRadius: 50,
-    borderTopRightRadius: 50,
-    elevation: 10,
-  },
-  texxt: {
-    position: "absolute",
-    left: windowWidth / 3.8,
-    top: windowHeight / 40,
+    alignItems:'center',
+    height:windowHeight*0.1,
+    width:windowWidth*0.12,
+    borderBottomWidth:1,
+    borderBottomColor:'#a9a9a9',
+    backgroundColor:"#ffffff",
+    flexDirection:'row',  
+    elevation:12 
+    
+},
+stateContainer:{
+    height:windowHeight*0.1,
+    width:windowWidth*0.23,
+    justifyContent:"center",
+    alignItems:'center',
+    left:-windowWidth*0.07
+},
+stateText:{
+    transform: [{ rotate: '270deg'}],
+    fontFamily:'Poppins-Light',
+    fontSize:14
+},
+numText:{
+  marginRight:windowWidth/25,
+  fontSize:18,
+  fontFamily:"Poppins-Light",
+  
+},
+
+numberContainer:{
+  position:"absolute",
+  top:windowHeight*0.005,
+  width:windowWidth*0.23,
+  backgroundColor: "#ffffff",
+  height:windowHeight*0.085,
+  alignItems:"flex-end",
+  justifyContent:"center",
+  borderBottomRightRadius:50,
+  borderTopRightRadius:50,
+  elevation:10,
+},
+texxt:{
+    position:'absolute',
+    left:windowWidth/3.8,
+    top:windowHeight/40,
     backgroundColor: "#ffffff",
-    borderRightColor: "#a9a9a9",
-    justifyContent: "center",
-  },
-  dishText: {
-    fontSize: 16,
-    fontFamily: "Poppins-Light",
-  },
+    borderRightColor:'#a9a9a9',
+    justifyContent:"center",
+    
+},
+dishText:{
+    fontSize:14,
+    fontFamily:"Poppins-Light"
+}
+
 });
 function useFonts(fontMap) {
   let [fontsLoaded, setFontsLoaded] = useState(false);
