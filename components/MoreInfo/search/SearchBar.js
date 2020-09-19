@@ -38,14 +38,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingLeft: 7,
     borderRadius: 12,
-    elevation: 5,
+    elevation: 10,
     shadowColor: "grey",
     shadowRadius: 10,
     shadowOpacity: 0.5,
+    zIndex: 1,
   },
   searchIcon: {
     position: "absolute",
     right: width / 12,
-    elevation: 5,
+    elevation: 10,
+    zIndex: 1,
   },
 });

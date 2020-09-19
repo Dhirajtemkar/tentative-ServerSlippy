@@ -489,16 +489,30 @@ export default function SelectDish({ route }) {
     <SafeAreaView style={styles.SelectDish}>
       <BottomSheet
         ref={bs}
-        snapPoints={[width / 1.4, 0]}
+        snapPoints={[width / 1.8, -100]}
         renderContent={() => renderCustomizations()}
         initialSnap={1}
         callbackNode={fall}
         enabledGestureInteraction={true}
+        style={{ position: "absolute", bottom: -40 }}
         // useAddress={isCustom}
       />
       <View style={styles.TopDesign} />
-      <View style={{ alignItems: "center", justifyContent: "center" }}>
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <View style={styles.pageHeader}>
+          <View
+            style={{
+              width: width,
+              height: 50,
+              justifyContent: "center",
+              alignItems: "flex-end",
+            }}
+          />
           <PageBackSVG
             onPress={() => route.params.navigation.pop()}
             style={styles.pageBack}
@@ -584,16 +598,18 @@ const styles = StyleSheet.create({
   },
   ViewCartBtn: {
     elevation: 4,
-    width: width - 30,
+    width: width - 60,
     height: width / 6,
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 100,
+    marginBottom: width / 5,
     backgroundColor: "#FF264D",
     flexDirection: "row",
     paddingLeft: 20,
     paddingRight: 20,
+    // position: "absolute",
+    // bottom: 100,
   },
   BtnText2: {
     color: "#fff",
@@ -607,7 +623,6 @@ const styles = StyleSheet.create({
     elevation: 8,
     alignItems: "center",
     justifyContent: "center",
-    // backgroundColor: "#fff",
     shadowColor: "grey",
     shadowRadius: 10,
     shadowOpacity: 0.5,
@@ -624,16 +639,16 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   baseMainBtn: {
-    flex: 1,
+    flex: 1.5,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-end",
   },
   plsTax: {
-    fontSize: 10,
+    fontSize: 8,
     lineHeight: 18,
     color: "#fff",
-    marginLeft: 10,
+    marginLeft: 5,
   },
   btnActBot: {
     flex: 1,

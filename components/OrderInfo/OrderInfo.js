@@ -148,7 +148,7 @@ export default function OrderInfo({ route }) {
           <Text style={styles.tit1}>Table: {route.params.tableNo}</Text>
         </View>
         <ScrollView
-          style={{ height: width * 0.95, marginTop: 10 }}
+          style={{ height: width * 0.9, marginTop: 10 }}
           showsVerticalScrollIndicator={false}
         >
           {route.params.orderState === "extended" ? (
@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
     width: width,
     position: "absolute",
     bottom: 0,
-    height: width / 2,
+    // height: width / 2,
     backgroundColor: "#FFE4E9",
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
