@@ -63,7 +63,7 @@ const All=({orderDetail,navigation,pageRoutedFrom})=>{
               <Text style={styles.dishText}>{item.code}/ ${item.total}</Text>
 
             </TouchableOpacity>
-            <TouchableOpacity style={{marginLeft:windowWidth*0.8,justifyContent:"center"}}  onPress={() => navigation.navigate('AddCustom')}> 
+            <TouchableOpacity style={{marginLeft:windowWidth*0.8,justifyContent:"center"}} > 
               <Arrow/>
             </TouchableOpacity>
             
