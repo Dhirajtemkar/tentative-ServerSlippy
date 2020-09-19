@@ -13,6 +13,8 @@ import ServerImg from '../img/server'
 import Menu from '../img/menu'
 import {CustomerOrder} from '../CustomerOrder/CustomerOrder'
 import MenuToggle from '../TopNav/MenuToggle'
+import TopNav from "../TopNav/TopNav";
+
 
 
 
@@ -49,18 +51,27 @@ const Server=({navigation})=>{
 
     return (
         <View style={styles.container}>
-            <View style={styles.titleContainer}>
-                <View style={styles.ContainerTwo}>
-                    <MenuToggle navigation={navigation} />
-                    <Text style={styles.name}>54th Ave, Marques St..</Text>
-                    <View style={{flexDirection:"row",top:20}}>
-                        <View style={styles.titleTag}>
-                            <Text style={{fontFamily:'Poppins-Light',color:'#ff264d',fontSize:19,lineHeight:29}}>Mike's cafe</Text>
-                        </View>
-                        <ServerImg style={{left: windowWidth*0.45}} />
-                    </View>
-                </View>
+        <View style={styles.titleContainer}>
+          <View style={styles.ContainerTwo}>
+            <TopNav navigation={navigation} />
+            <Text style={styles.name}>54th Ave, Marques St..</Text>
+            <View style={{ flexDirection: "row", top: 20 }}>
+              <View style={styles.titleTag}>
+                <Text
+                  style={{
+                    fontFamily: "Poppins-Light",
+                    color: "#ff264d",
+                    fontSize: 19,
+                    lineHeight: 29,
+                  }}
+                >
+                  Mike's cafe
+                </Text>
+              </View>
+              <ServerImg style={{ left: windowWidth * 0.45 }} />
             </View>
+          </View>
+        </View>
 
             <View style={styles.statusContainer}>
                 <View style={styles.tabContainer}>

@@ -50,7 +50,7 @@ const GenBill=({orderDetail,navigation,pageRoutedFrom})=>{
                 </Text>
             </View>
             <View style={styles.statusBox}>
-              <View style={{height:windowHeight*0.12,width:windowWidth*0.016,backgroundColor:backgroundColor}} />
+              <View style={{height:windowHeight*0.13,width:windowWidth*0.016,backgroundColor:backgroundColor}} />
               <View style={styles.stateContainer}>
                   <Text style={styles.stateText}>{item.orderState}</Text>
               </View>
@@ -84,7 +84,7 @@ const styles=StyleSheet.create({
     tabbContainer:{
         flex:1,
         backgroundColor: "#ffffff",
-        height:windowHeight*0.12,
+        height:windowHeight*0.13,
         borderBottomWidth:1,
         borderBottomColor:'#a9a9a9',
         flexDirection:'row'
@@ -94,7 +94,7 @@ const styles=StyleSheet.create({
     statusBox:{
         backgroundColor: "#ffffff",
         alignItems:'center',
-        height:windowHeight*0.12,
+        height:windowHeight*0.13,
         width:windowWidth*0.12,
         borderBottomWidth:1,
         borderBottomColor:'#a9a9a9',
@@ -104,11 +104,11 @@ const styles=StyleSheet.create({
         
     },
     stateContainer:{
-        height:windowHeight*0.1,
-        width:windowWidth*0.2,
+        height:windowHeight*0.12,
+        width:windowWidth*0.23,
         justifyContent:"center",
         alignItems:'center',
-        left:-windowWidth*0.05
+        left:-windowWidth*0.07
     },
     stateText:{
         transform: [{ rotate: '270deg'}],
