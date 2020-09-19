@@ -30,35 +30,37 @@ export default function TopNav({ navigation }) {
         </TouchableOpacity>
         {open ? (
           <View style={styles.extendMenu}>
-            <TouchableOpacity>
-              <SingleMenuOption key={1} tit="Home">
-                <HomeSVG />
-              </SingleMenuOption>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.push("ProfileScreen", {
-                  navigation: navigation,
-                })
-              }
-            >
-              <SingleMenuOption key={2} tit="Profile">
-                <ProfileSVG />
-              </SingleMenuOption>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <SingleMenuOption key={3} tit="New Order">
-                <NewOrderSVG />
-              </SingleMenuOption>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <SingleMenuOption key={4} tit="Past Order">
-                <BackHistroySVG />
-              </SingleMenuOption>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <SingleMenuOption key={5} tit="Club Order" />
-            </TouchableOpacity>
+            <View>
+              <TouchableOpacity>
+                <SingleMenuOption key={1} tit="Home">
+                  <HomeSVG />
+                </SingleMenuOption>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.push("ProfileScreen", {
+                    navigation: navigation,
+                  })
+                }
+              >
+                <SingleMenuOption key={2} tit="Profile">
+                  <ProfileSVG />
+                </SingleMenuOption>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <SingleMenuOption key={3} tit="New Order">
+                  <NewOrderSVG />
+                </SingleMenuOption>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <SingleMenuOption key={4} tit="Past Order">
+                  <BackHistroySVG />
+                </SingleMenuOption>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <SingleMenuOption key={5} tit="Club Order" />
+              </TouchableOpacity>
+            </View>
           </View>
         ) : (
           <View></View>
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
   extendMenu: {
     // width: width / 2.7,
     backgroundColor: "#fff",
-    // height: width / 2.5,
+    // height: width / 2,
     position: "absolute",
     elevation: 15,
     borderRadius: 15,
@@ -89,5 +91,6 @@ const styles = StyleSheet.create({
     left: width / 8,
     paddingHorizontal: 15,
     paddingVertical: 20,
+    zIndex: 1,
   },
 });

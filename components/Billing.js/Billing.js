@@ -125,65 +125,6 @@ const Server = ({ navigation }) => {
             </View>
           </View>
         </View>
-
-        <View style={styles.statusContainer}>
-          <View style={styles.tabContainer}>
-            <View
-              style={{
-                flex: 1,
-                backgroundColor: "#ff264d",
-                position: "absolute",
-                top: windowHeight * 0.005,
-                width: width,
-                height: windowHeight * 0.05,
-                left: leftShift,
-                borderRadius: 20,
-              }}
-            />
-
-            <TouchableOpacity style={styles.button} onPress={() => setTab(0)}>
-              <Text
-                style={{
-                  fontFamily: "Poppins-Light",
-                  fontSize: 18,
-                  color: font1,
-                  textAlign: "center",
-                }}
-              >
-                Generate Bill
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.button} onPress={() => setTab(1)}>
-              <Text
-                style={{
-                  fontFamily: "Poppins-Light",
-                  fontSize: 18,
-                  color: font2,
-                  textAlign: "center",
-                }}
-              >
-                Ready
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.stateList}>
-            {tab == 0 ? (
-              <GenBill
-                orderDetail={CustomerOrder}
-                navigation={navigation}
-                pageRoutedFrom={"BillingGen"}
-              />
-            ) : (
-              <Ready
-                orderDetail={CustomerOrder}
-                navigation={navigation}
-                pageRoutedFrom={"BillingGen"}
-              />
-            )}
-          </View>
-        </View>
       </View>
     );
   }

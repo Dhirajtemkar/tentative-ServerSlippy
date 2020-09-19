@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     // paddingVertical: 5,
   },
   stateList: {
-    flex: 2,
+    height: windowHeight / 1.87,
     flexDirection: "row",
     backgroundColor: "#e5e5e5",
     borderBottomColor: 5,

@@ -85,6 +85,7 @@ const BillScreen = ({ route }) => {
         name="SplitAmountScreen"
         component={SplitAmountScreen}
       />
+      <BillStack.Screen name="ProfileScreen" component={ProfileScreen} />
     </BillStack.Navigator>
   );
 };
