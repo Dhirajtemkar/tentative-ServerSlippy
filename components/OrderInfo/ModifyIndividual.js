@@ -7,6 +7,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import CheckedSVG from "../../assets/Svgs/CheckedSVG";
 import UncheckedSVG from "../../assets/Svgs/UncheckedSVG";
 import OrderCounter from "../OrderInfo/OrderCounter";
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
 const { width, height } = Dimensions.get("window");
 
 export default function ModifyIndividual({
@@ -74,7 +76,13 @@ export default function ModifyIndividual({
       checkedHai
     );
   };
+  let [fontsLoaded] = useFonts({
+    "Poppins-Medium": require('../../assets/fonts/Poppins-Medium.ttf'),
+  });
 
+  if (!fontsLoaded) {
+    return <AppLoading />;
+    }else{
   return (
     <View style={styles.dish}>
       <View style={{ flex: 1, justifyContent: "center" }}>
@@ -117,7 +125,7 @@ export default function ModifyIndividual({
     </View>
   );
 }
-
+}
 const styles = StyleSheet.create({
   dish: {
     width: width - 20,
@@ -146,8 +154,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   dishMain: { flex: 3, flexDirection: "row" },
-  dishName: { fontSize: 15, fontWeight: "700", flexDirection: "row" },
+  dishName: { fontSize: 15, fontWeight: "700", flexDirection: "row",fontFamily:"Poppins-Medium"},
   dishStars: { height: 20, justifyContent: "center", marginTop: 5 },
   dishPrice: { fontSize: 12, alignItems: "center" },
   counterMain: { flex: 1, justifyContent: "center" },
 });
+function useFonts(fontMap) {
+  let [fontsLoaded, setFontsLoaded] = useState(false);
+  (async () => {
+    await Font.loadAsync(fontMap);
+    setFontsLoaded(true);
+  })();
+  return [fontsLoaded];
+}

@@ -8,10 +8,21 @@ import {
 } from "react-native";
 import RightArrowSVG from "../../assets/Svgs/RightArrowSVG";
 import { TouchableHighlight } from "react-native-gesture-handler";
-
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
 const { width, height } = Dimensions.get("window");
 
+
 export default function StatusChangeBtn(props) {
+  let [fontsLoaded] = useFonts({
+    "Poppins-Light": require('../../assets/fonts/Poppins-Light.ttf'),
+    "Poppins-Medium": require('../../assets/fonts/Poppins-Medium.ttf'),
+    "Poppins-Bold": require('../../assets/fonts/Poppins-Bold.ttf'),
+    "Poppins-SemiBold": require('../../assets/fonts/Poppins-SemiBold.ttf'),
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+    }else{
   return (
     <View style={{ flex: 1.5 }}>
       <TouchableHighlight onPress={() => props.action()}>
@@ -23,7 +34,7 @@ export default function StatusChangeBtn(props) {
     </View>
   );
 }
-
+}
 const styles = StyleSheet.create({
   BaseBtn: {
     // width: width / 3,
@@ -40,9 +51,17 @@ const styles = StyleSheet.create({
     // marginVertical: 10,
   },
   CustBtn: {
-    fontSize: 18,
+    fontSize: 14,
     color: "#fff",
     textAlign: "center",
-    fontWeight: "700",
+    fontFamily:"Poppins-Bold"
   },
 });
+function useFonts(fontMap) {
+  let [fontsLoaded, setFontsLoaded] = useState(false);
+  (async () => {
+    await Font.loadAsync(fontMap);
+    setFontsLoaded(true);
+  })();
+  return [fontsLoaded];
+}

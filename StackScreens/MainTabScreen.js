@@ -135,9 +135,10 @@ function MyTabBar({ state, descriptors, navigation }) {
     <View
       style={{
         flexDirection: "row",
-        height: windowWidth / 7,
+        height: windowHeight / 12,
         backgroundColor: "#ffffff",
         elevation: 15,
+        
       }}
     >
       {state.routes.map((route, index) => {

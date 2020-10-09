@@ -10,7 +10,6 @@ import {
   ScrollView,
   Switch,
 } from "react-native";
-import CheckBox from "@react-native-community/checkbox";
 import PercentSplits from "./PercentSplits";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
@@ -20,9 +19,13 @@ const windowHeight = Dimensions.get("window").height;
 import LeftArrow from "../img/leftArrow";
 import Person from "../img/person";
 import EqualSplits from "./EqualSplits";
+import Check from './Check'
+import { AuthContext } from "../../StackScreens/context";
+
 
 const AddCustomer = ({ route }) => {
   const [selectedId, setSelectedId] = useState(null);
+
   var temp3 = [];
   var temp1 = [];
   var temp2 = {};
@@ -70,7 +73,11 @@ const AddCustomer = ({ route }) => {
   //     },
   //   ]
   const orderDishes = route.params.order.dishSelected;
-  var [CustomerOrder, setCustomerOrder] = useState(orderDishes);
+  orderDishes.map((d, index) => {
+      d.checked =false
+      d.disable = false  
+  });
+  const [CustomerOrder, setCustomerOrder] = useState(orderDishes);
   const [data, setData] = React.useState({
     name: "",
   });
@@ -87,18 +94,21 @@ const AddCustomer = ({ route }) => {
     });
     setText(val);
   };
-  const onCheckPress = (index) => {
-    [...CustomerOrder];
-    var temp = [...CustomerOrder];
-    temp[index].checked = !temp[index].checked;
-
-    setCustomerOrder(temp);
-  };
+  const checkContext = React.useMemo(() => ({
+    onCheckPress: (index) => {
+      var val = CustomerOrder;
+      val[index].checked = !val[index].checked;
+      setCustomerOrder(val);
+      console.log(CustomerOrder)
+      }
+   
+  }));
+ 
 
   const handleAddCustomer = () => {
     [...CustomerOrder], [...temp3];
 
-    var temp = [...CustomerOrder];
+    let temp = [...CustomerOrder];
     CustomerOrder.map((d, index) => {
       if (CustomerOrder[index].disable == true) {
       } else {
@@ -142,8 +152,9 @@ const AddCustomer = ({ route }) => {
 
   let [fontsLoaded] = useFonts({
     "Poppins-Light": require("../../assets/fonts/Poppins-Light.ttf"),
-    "Inter-SemiBoldItalic":
-      "https://rsms.me/inter/font-files/Inter-SemiBoldItalic.otf?v=3.12",
+    "Poppins-Medium": require("../../assets/fonts/Poppins-Medium.ttf"),
+
+    
   });
 
   if (!fontsLoaded) {
@@ -154,16 +165,22 @@ const AddCustomer = ({ route }) => {
       <View
         style={{
           flexDirection: "row",
-          borderBottomWidth: 2,
-          borderBottomColor: "#a9a9a9",
+          borderBottomWidth: 1,
+          borderBottomColor: "#999999",
           top: 20,
           marginBottom: 15,
         }}
       >
-        <CheckBox
-          value={item.checked}
-          onValueChange={() => onCheckPress(item.id)}
-        />
+        <AuthContext.Provider value={checkContext}>
+
+          <View style={{left:10}}>
+            <Check 
+             index={item.id}
+
+            />
+          </View>
+        </AuthContext.Provider>
+
         <View style={styles.orderContainer}>
           <Text style={styles.orderText}>{item.count}</Text>
           {/*changed qty -> count*/}
@@ -220,12 +237,14 @@ const AddCustomer = ({ route }) => {
     });
   };
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1 ,backgroundColor:"#fff",height:windowHeight,width:windowWidth}}>
       <View style={styles.TitleContainer}>
-        <TouchableOpacity onPress={() => route.params.navigation.pop()}>
-          <LeftArrow style={{ left: windowWidth * 0.01 }} />
+        <TouchableOpacity style={{flex:0.5,alignItems:"flex-start",}}onPress={() => route.params.navigation.pop()}>
+          <LeftArrow style={{ left: 10}} />
         </TouchableOpacity>
+        <View style={{flex:5,alignItems:"center"}}>
         <Text style={styles.title}>Add Customer</Text>
+        </View>
       </View>
       <View style={{ width: windowWidth, flexDirection: "row" }}>
         <View style={{ flex: 2 }} />
@@ -260,7 +279,7 @@ const AddCustomer = ({ route }) => {
                     >
                       <Text
                         style={
-                          !equalSplit ? { color: "#fff" } : { color: "#282828" }
+                          !equalSplit ? { color: "#282828",fontFamily:"Poppins-Medium" } : { color: "#fff",fontFamily:"Poppins-Medium" }
                         }
                       >
                         Equal Split
@@ -275,8 +294,8 @@ const AddCustomer = ({ route }) => {
                       <Text
                         style={
                           !percentSplit
-                            ? { color: "#fff" }
-                            : { color: "#282828" }
+                            ? { color: "#282828",fontFamily:"Poppins-Medium" }
+                            : { color: "#fff",fontFamily:"Poppins-Medium" }
                         }
                       >
                         Percent Split
@@ -296,7 +315,7 @@ const AddCustomer = ({ route }) => {
               </View>
             </View>
           ) : (
-            <View style={{ width: windowWidth, height: windowHeight }}>
+            <View style={{ width: windowWidth, marginTop:20,height:windowHeight-2*windowHeight/10 }}>
               <View style={styles.nameContainer}>
                 <Person left={windowWidth * 0.1} />
                 <Text style={styles.nameText}>Name</Text>
@@ -319,21 +338,14 @@ const AddCustomer = ({ route }) => {
                 <Text style={styles.titleTextContainer}>Item</Text>
                 <Text style={styles.titleTextContainer}>Amount</Text>
               </View>
-              <ScrollView
-                style={{
-                  marginTop: 0,
-                  width: windowWidth,
-                  height: windowWidth,
-                }}
-                showsVerticalScrollIndicator={false}
-              >
+              <View style={{height:windowHeight-(7*windowHeight/10)}}>
                 <FlatList
                   data={CustomerOrder}
                   renderItem={renderItem}
                   keyExtractor={(item) => item.id}
                   extraData={selectedId}
                 />
-              </ScrollView>
+              </View>
               <View
                 style={{
                   position: "absolute",
@@ -345,17 +357,18 @@ const AddCustomer = ({ route }) => {
                 <View
                   style={{
                     width: windowWidth,
-                    height: windowHeight * 0.35,
+                    height: windowHeight/6.5,
                     backgroundColor: "#FFE4E9",
                     borderTopLeftRadius: 20,
                     borderTopRightRadius: 40,
                     // flexDirection: "row",
                     justifyContent: "flex-start",
                     alignItems: "center",
-                    paddingTop: 40,
+                    paddingTop: 20,
                     paddingHorizontal: 20,
                     // flexDirection: ""
-                    position: "relative",
+                    position: "absolute",
+                    bottom:windowWidth/12
                   }}
                 >
                   <TouchableOpacity
@@ -378,11 +391,7 @@ const AddCustomer = ({ route }) => {
                     By clicking this you are adding dishes to members, to split
                     the bill
                   </Text>
-                  <View>
-                    {temp5.map((e) => (
-                      <Text>{e.personName}</Text>
-                    ))}
-                  </View>
+                 
                 </View>
               </View>
             </View>
@@ -398,16 +407,16 @@ const styles = StyleSheet.create({
     width: windowWidth,
     height: windowHeight * 0.1,
     paddingTop: windowHeight * 0.05,
-    alignItems: "center",
     backgroundColor: "#ff264d",
     flexDirection: "row",
+    borderBottomRightRadius:20,
+    borderBottomLeftRadius:20
   },
   title: {
-    fontFamily: "Roboto",
+    fontFamily: "Poppins-Medium",
     color: "#ffffff",
     fontSize: 24,
     lineHeight: 28,
-    left: windowWidth * 0.28,
   },
   nameContainer: {
     flexDirection: "row",
@@ -502,26 +511,12 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   funspTit: {
-    fontSize: 20,
+    fontSize: 18,
     color: "#FF264D",
-    fontWeight: "700",
     textAlign: "center",
+    fontFamily:"Poppins-Medium"
   },
   optionBtn: {
-    backgroundColor: "#FF264D",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 17,
-    paddingVertical: 7,
-    borderRadius: 50,
-    marginRight: 15,
-  },
-  horiScroll: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 20,
-  },
-  optionBtnEq: {
     backgroundColor: "#dddddd",
     alignItems: "center",
     justifyContent: "center",
@@ -529,6 +524,22 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
     borderRadius: 50,
     marginRight: 15,
+    fontFamily:"Poppins-Light"
+  },
+  horiScroll: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+  },
+  optionBtnEq: {
+    backgroundColor: "#ff264d",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 17,
+    paddingVertical: 7,
+    borderRadius: 50,
+    marginRight: 15,
+    fontFamily:"Poppins-Light"
   },
 });
 

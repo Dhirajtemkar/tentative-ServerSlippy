@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Dimensions, TextInput } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 const { width, height } = Dimensions.get("window");
-
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
 export default function PercentSplits(props) {
   const [nameInput, setNameInput] = useState("");
   const [percentInput, setPercentInput] = useState();
@@ -31,11 +32,20 @@ export default function PercentSplits(props) {
       setPercentInput(0);
     }
   };
+  let [fontsLoaded] = useFonts({
+    "Poppins-Light": require('../../assets/fonts/Poppins-Light.ttf'),
+    "Poppins-Medium": require('../../assets/fonts/Poppins-Medium.ttf'),
+    "Poppins-Bold": require('../../assets/fonts/Poppins-Bold.ttf'),
+    "Poppins-SemiBold": require('../../assets/fonts/Poppins-SemiBold.ttf'),
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+    }else{
   return (
     <View>
       {props.percentSplit ? (
         <View>
-          <Text style={styles.topTit}>Percent Splits karne name space</Text>
+          <Text style={styles.topTit}>Name Space for Percent Splits</Text>
 
           <View style={styles.mainCont}>
             <View style={{ flexDirection: "row" }}>
@@ -70,15 +80,15 @@ export default function PercentSplits(props) {
                   style={{ flexDirection: "row", width: width, marginTop: 20 }}
                 >
                   <Text
-                    style={{ flex: 0.5, paddingLeft: 20, fontWeight: "700" }}
+                    style={{ flex: 0.5, paddingLeft: 20, fontFamily:"Poppins-Medium" }}
                   >
                     Sr. No.
                   </Text>
-                  <Text style={{ flex: 1, paddingLeft: 10, fontWeight: "700" }}>
+                  <Text style={{ flex: 1, paddingLeft: 10, fontFamily:"Poppins-Medium" }}>
                     Names Inclued
                   </Text>
                   <Text
-                    style={{ flex: 0.5, paddingLeft: 10, fontWeight: "700" }}
+                    style={{ flex: 0.5, paddingLeft: 10, fontFamily:"Poppins-Medium" }}
                   >
                     Percentage
                   </Text>
@@ -94,10 +104,10 @@ export default function PercentSplits(props) {
                     flexDirection: "row",
                   }}
                 >
-                  <Text style={{ flex: 0.5, paddingLeft: 20 }}>
+                  <Text style={{ flex: 0.5, paddingLeft: 20,fontFamily:"Poppins-Light" }}>
                     {index + 1}
                   </Text>
-                  <Text style={{ flex: 1, paddingLeft: 10 }}>
+                  <Text style={{ flex: 1, paddingLeft: 10,fontFamily:"Poppins-Light" }}>
                     {each.personName}
                   </Text>
                   <Text style={styles.percentPlace}>{each.percentSplit} %</Text>
@@ -142,7 +152,7 @@ export default function PercentSplits(props) {
     </View>
   );
 }
-
+}
 const styles = StyleSheet.create({
   mainCont: {
     alignItems: "center",
@@ -153,7 +163,7 @@ const styles = StyleSheet.create({
   topTit: {
     textAlign: "center",
     fontSize: 18,
-    fontWeight: "700",
+    fontFamily:"Poppins-Medium",
     marginVertical: 15,
   },
   nameInputSt: {
@@ -189,18 +199,18 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 20,
     lineHeight: 22,
-    fontWeight: "700",
+    fontFamily:"Poppins-Medium",
   },
   finalRateSt: {
     color: "#12BB90",
-    fontWeight: "700",
+    fontFamily:"Poppins-Medium",
     fontSize: 18,
   },
   bottomTotal: {
     flex: 1,
     textAlign: "center",
     fontSize: 18,
-    fontWeight: "700",
+    fontFamily:"Poppins-Medium",
     color: "#282828",
   },
   bottomIndi: {
@@ -215,7 +225,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#C4C4C4",
   },
   billThisBtn: {
-    width: width / 2,
+    width: width / 2.2,
     height: width / 8,
     backgroundColor: "#FF264D",
     alignItems: "center",
@@ -227,7 +237,7 @@ const styles = StyleSheet.create({
   billBtnTit: {
     color: "#fff",
     fontSize: 17.5,
-    fontWeight: "700",
+    fontFamily:"Poppins-Medium",
   },
   percentPlace: {
     paddingLeft: 10,
@@ -237,5 +247,15 @@ const styles = StyleSheet.create({
     marginRight: 20,
     width: 60,
     alignItems: "flex-start",
+    fontFamily:"Poppins-Medium",
+
   },
 });
+function useFonts(fontMap) {
+  let [fontsLoaded, setFontsLoaded] = useState(false);
+  (async () => {
+    await Font.loadAsync(fontMap);
+    setFontsLoaded(true);
+  })();
+  return [fontsLoaded];
+}

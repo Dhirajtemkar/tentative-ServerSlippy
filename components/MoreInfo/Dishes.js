@@ -7,6 +7,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import CheckedSVG from "../../assets/Svgs/CheckedSVG";
 import UncheckedSVG from "../../assets/Svgs/UncheckedSVG";
 import OrderCounter from "../OrderInfo/OrderCounter";
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
 const { width, height } = Dimensions.get("window");
 
 export default function Dishes({
@@ -19,6 +21,7 @@ export default function Dishes({
   FinalCalculations,
   orderState,
 }) {
+  console.log(up)
   let ratingObj = dish.rating;
   let stars = [];
   for (var i = 1; i <= 5; i++) {
@@ -75,7 +78,13 @@ export default function Dishes({
       checkedHai
     );
   };
-
+  let [fontsLoaded] = useFonts({
+    "Poppins-Regular": require('../../assets/fonts/Poppins-Regular.ttf'),
+    "Poppins-Medium": require('../../assets/fonts/Poppins-Medium.ttf'),
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+    }else{
   return (
     <View style={styles.dish}>
       <View style={{ flex: 1, justifyContent: "center" }}>
@@ -131,7 +140,7 @@ export default function Dishes({
     </View>
   );
 }
-
+}
 const styles = StyleSheet.create({
   dish: {
     width: width - 20,
@@ -160,9 +169,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   dishMain: { flex: 3, flexDirection: "row" },
-  dishName: { fontSize: 15, fontWeight: "700", flexDirection: "row" },
-  dishStars: { height: 20, justifyContent: "center", marginTop: 5 },
-  dishPrice: { fontSize: 12, alignItems: "center" },
+  dishName: { fontSize: 14,fontFamily:"Poppins-Regular", flexDirection: "row" },
+  dishStars: { height: 20, justifyContent: "center", marginTop: 1 },
+  dishPrice: { fontSize: 12, alignItems: "center",fontFamily:"Poppins-Regular" },
   counterMain: { flex: 1, justifyContent: "center" },
   prepDot: {
     width: 12,
@@ -174,3 +183,11 @@ const styles = StyleSheet.create({
     marginLeft: width / 15,
   },
 });
+function useFonts(fontMap) {
+  let [fontsLoaded, setFontsLoaded] = useState(false);
+  (async () => {
+    await Font.loadAsync(fontMap);
+    setFontsLoaded(true);
+  })();
+  return [fontsLoaded];
+}

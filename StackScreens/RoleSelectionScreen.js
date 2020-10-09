@@ -21,7 +21,7 @@ const RoleSelectionScreen=({navigation})=>{
 
     let [fontsLoaded] = useFonts({
         "Poppins-Light": require('../assets/fonts/Poppins-Light.ttf'),
-        
+        "Poppins-Medium": require('../assets/fonts/Poppins-Medium.ttf'),
       });
     
       if (!fontsLoaded) {
@@ -36,22 +36,22 @@ const RoleSelectionScreen=({navigation})=>{
                 </View>
                 <View>
                     <View style={{flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-                        <Text style={{fontFamily:'Poppins-Light',color:'#000000',fontSize:14,lineHeight:29,marginTop:windowHeight*0.1}}>Please Select your Roles</Text>
-                        <Text style={{fontFamily:'Poppins-Light',color:'#000000',fontSize:14,lineHeight:29}}>Multiple selection is available</Text>
+                        <Text style={{fontFamily:'Poppins-Medium',color:'#000000',fontSize:14,lineHeight:29,marginTop:windowHeight*0.1}}>Please select your roles</Text>
+                        <Text style={{fontFamily:'Poppins-Medium',lineHeight:21,color:'#000000',fontSize:14,lineHeight:29}}>Multiple selection is available</Text>
 
                        
                       <View style={{width: windowWidth, height:30,flexDirection:"row",marginTop:windowHeight*0.1}}> 
-                      <Text style={styles.roleText} >Server</Text>
-                      <Switch
-                            thumbColor='#ffffff'
-                            trackColor={{ false: "#767577", true: "#ff264d" }}
-                            thumbColor={isEnabled ? "#ffffff" : "#c4c4c4"}
-                            ios_backgroundColor="#3e3e3e"
-                            onValueChange={toggleSwitch}
-                            value={isEnabled}
-                            style={{width:90,height:30,left:80}}
-                        />
-                        </View>
+                        <Text style={styles.roleText} >Server</Text>
+                        <Switch
+                                thumbColor='#ffffff'
+                                trackColor={{ false: "#767577", true: "#ff264d" }}
+                                thumbColor={isEnabled ? "#ffffff" : "#c4c4c4"}
+                                ios_backgroundColor="#3e3e3e"
+                                onValueChange={toggleSwitch}
+                                value={isEnabled}
+                                style={{right:windowWidth/2,position:"absolute"}}
+                            />
+                            </View>
                         <View style={styles.roleContainer}> 
                       <Text style={styles.roleText}>chef</Text>
                       <Switch
@@ -61,8 +61,8 @@ const RoleSelectionScreen=({navigation})=>{
                             ios_backgroundColor="#3e3e3e"
                             onValueChange={toggleSwitch1}
                             value={isEnabled1}
-                            style={{width:90,height:30,left:98}}
-                        />
+                            style={{right:windowWidth/2,position:"absolute"}}
+                            />
                         </View>
                         <View style={styles.roleContainer}> 
                       <Text style={styles.roleText}>Billing</Text>
@@ -73,8 +73,8 @@ const RoleSelectionScreen=({navigation})=>{
                             ios_backgroundColor="#3e3e3e"
                             onValueChange={toggleSwitch2}
                             value={isEnabled2}
-                            style={{width:90,height:30,left:89}}
-                        />
+                            style={{right:windowWidth/2,position:"absolute"}}
+                            />
                         </View>
                         {isEnabled||isEnabled1||isEnabled2?
                         
@@ -107,13 +107,7 @@ const styles=StyleSheet.create({
         borderBottomLeftRadius:20,
         borderBottomRightRadius:20    
     },
-    title:{
-        fontFamily: 'Poppins-Light',
-        color:'#ffffff',
-        fontSize:24,
-        lineHeight:28,
-        left:windowWidth*0.28  
-    },
+    
     saveButton:{
         width:windowWidth*0.25,
         height:windowHeight*0.055,
@@ -137,7 +131,7 @@ const styles=StyleSheet.create({
         marginTop:windowHeight*0.025
     },
     roleText:{
-        fontFamily:'Poppins-Light',
+        fontFamily:'Poppins-Medium',
         color:'#ff264d',
         fontSize:19,
         lineHeight:29,

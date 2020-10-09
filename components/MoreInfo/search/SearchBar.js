@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 15,
+    marginTop: 20,
+    position:"relative"
     // flex: 1,
   },
   Searchbar: {

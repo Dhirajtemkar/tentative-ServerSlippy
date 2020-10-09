@@ -9,7 +9,8 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 const { width, height } = Dimensions.get("window");
-
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
 export default function EqualSplits(props) {
   const [nameInput, setNameInput] = useState("");
   const [names, setNames] = useState([]);
@@ -21,11 +22,20 @@ export default function EqualSplits(props) {
       setNameInput("");
     }
   };
+  let [fontsLoaded] = useFonts({
+    "Poppins-Light": require('../../assets/fonts/Poppins-Light.ttf'),
+    "Poppins-Medium": require('../../assets/fonts/Poppins-Medium.ttf'),
+    "Poppins-Bold": require('../../assets/fonts/Poppins-Bold.ttf'),
+    "Poppins-SemiBold": require('../../assets/fonts/Poppins-SemiBold.ttf'),
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+    }else{
   return (
     <View>
       {props.equalSplit ? (
         <View>
-          <Text style={styles.topTit}>Equal Splits karne name space</Text>
+          <Text style={styles.topTit}>Name space for Equal Splits</Text>
 
           <View style={styles.mainCont}>
             <TextInput
@@ -54,10 +64,10 @@ export default function EqualSplits(props) {
                     marginTop: 20,
                   }}
                 >
-                  <Text style={{ flex: 1, paddingLeft: 20, fontWeight: "700" }}>
+                  <Text style={{ flex: 1, paddingLeft: 20,fontFamily:"Poppins-Medium", }}>
                     Sr. No.
                   </Text>
-                  <Text style={{ flex: 2, paddingLeft: 10, fontWeight: "700" }}>
+                  <Text style={{ flex: 2, paddingLeft: 10, fontFamily:"Poppins-Medium", }}>
                     Names Inclued
                   </Text>
                 </View>
@@ -67,10 +77,10 @@ export default function EqualSplits(props) {
               {names.map((each, index) => {
                 return (
                   <View style={styles.eachNameSpace} key={index}>
-                    <Text style={{ flex: 1, paddingLeft: 20 }}>
+                    <Text style={{ flex: 1, paddingLeft: 20,fontFamily:"Poppins-Light", }}>
                       {index + 1}
                     </Text>
-                    <Text style={{ flex: 2, paddingLeft: 10 }}>{each}</Text>
+                    <Text style={{ flex: 2, paddingLeft: 10,fontFamily:"Poppins-Light" }}>{each}</Text>
                   </View>
                 );
               })}
@@ -113,7 +123,7 @@ export default function EqualSplits(props) {
     </View>
   );
 }
-
+}
 const styles = StyleSheet.create({
   mainCont: {
     alignItems: "center",
@@ -124,7 +134,7 @@ const styles = StyleSheet.create({
   topTit: {
     textAlign: "center",
     fontSize: 18,
-    fontWeight: "700",
+    fontFamily:"Poppins-Medium",
     marginVertical: 15,
   },
   nameInputSt: {
@@ -149,7 +159,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 20,
     lineHeight: 22,
-    fontWeight: "700",
+    fontFamily:"Poppins-Medium",
   },
   finalRateSt: {
     color: "#12BB90",
@@ -160,7 +170,7 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: "center",
     fontSize: 18,
-    fontWeight: "700",
+    fontFamily:"Poppins-Medium",
     color: "#282828",
   },
   bottomIndi: {
@@ -180,7 +190,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#C4C4C4",
   },
   billThisBtn: {
-    width: width / 2,
+    width: width / 2.2,
     height: width / 8,
     backgroundColor: "#FF264D",
     alignItems: "center",
@@ -192,6 +202,14 @@ const styles = StyleSheet.create({
   billBtnTit: {
     color: "#fff",
     fontSize: 17.5,
-    fontWeight: "700",
+    fontFamily:"Poppins-Medium",
   },
 });
+function useFonts(fontMap) {
+  let [fontsLoaded, setFontsLoaded] = useState(false);
+  (async () => {
+    await Font.loadAsync(fontMap);
+    setFontsLoaded(true);
+  })();
+  return [fontsLoaded];
+}

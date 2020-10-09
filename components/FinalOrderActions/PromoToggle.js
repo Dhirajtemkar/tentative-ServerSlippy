@@ -1,23 +1,32 @@
 import React, { useState } from "react";
 import { StyleSheet, Image, Text, View } from "react-native";
-
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
 export default function PromoToggle(props) {
+  let [fontsLoaded] = useFonts({
+    
+    "Poppins-Regular": require('../../assets/fonts/Poppins-Regular.ttf'),
+
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+    }else{
   return (
     <View style={styles.container} Key={props.promo.id}>
       <View
         style={
           props.promo.setPromo === false
             ? {
-                width: 26,
-                height: 26,
+                width: 25,
+                height: 25,
                 borderRadius: 20,
                 backgroundColor: "#dddddd",
                 alignItems: "center",
                 justifyContent: "center",
               }
             : {
-                width: 26,
-                height: 26,
+                width: 25,
+                height: 25,
                 borderRadius: 20,
                 backgroundColor: "#FF264D",
                 alignItems: "center",
@@ -44,7 +53,7 @@ export default function PromoToggle(props) {
     </View>
   );
 }
-
+}
 const styles = StyleSheet.create({
   container: {
     display: "flex",
@@ -56,13 +65,21 @@ const styles = StyleSheet.create({
   },
   textAdd: {
     fontSize: 14,
-    fontWeight: "700",
+    fontFamily:"Poppins-Regular",
     lineHeight: 20,
   },
   textdes: {
     fontSize: 12,
-    fontWeight: "700",
+    fontFamily:"Poppins-Regular",
     // lineHeight: 20,
     color: "#BABABA",
   },
 });
+function useFonts(fontMap) {
+  let [fontsLoaded, setFontsLoaded] = useState(false);
+  (async () => {
+    await Font.loadAsync(fontMap);
+    setFontsLoaded(true);
+  })();
+  return [fontsLoaded];
+}

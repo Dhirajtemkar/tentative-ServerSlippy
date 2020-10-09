@@ -8,6 +8,8 @@ import {
   StatusBar,
 } from "react-native";
 import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
 // import { AuthContext } from "../Auth/Context";
 // import AsyncStorage from "@react-native-community/async-storage";
 // import TopLogo from "../LocalDine/TopLogo";
@@ -45,10 +47,18 @@ export default function ProfileScreen({ route }) {
       // console.log(profileUrl);
     });
   });
+  let [fontsLoaded] = useFonts({
+    "Poppins-Regular": require('../../assets/fonts/Poppins-Regular.ttf'),
+    "Poppins-Medium": require('../../assets/fonts/Poppins-Medium.ttf'),
+    "Poppins-Bold": require('../../assets/fonts/Poppins-Bold.ttf'),
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+    }else{
   return (
     <SafeAreaView style={styles.mainCont}>
       <View style={styles.TopDesign} />
-      <ScrollView style={{ height: height, width: width }}>
+      <View style={{ height: height, width: width,flex:1 }}>
         <View style={styles.main}>
           <View style={styles.profileContainer}>
             {profileImg == null ? (
@@ -68,7 +78,10 @@ export default function ProfileScreen({ route }) {
           </View>
           <Text style={styles.userName}>{user.name}</Text>
           <Text style={styles.userLoc}>Mumbai, Maharashtra</Text>
-
+          <View style={{ height: height-600-height/12-500,flex:1,width: width}}>
+          <ScrollView>
+            
+          <View style={{width:width,alignItems:"center"}}>
           <View style={styles.InApplinks}>
             <TouchableOpacity onPress={() => {}}>
               <InAppLink
@@ -106,16 +119,20 @@ export default function ProfileScreen({ route }) {
               <Text style={styles.bottomT}>Logout</Text>
             </TouchableOpacity>
           </View>
+          </View>
+          </ScrollView>
+          </View>
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
-
+}
 const styles = StyleSheet.create({
   mainCont: {
     flex: 1,
     width: width,
+    backgroundColor:"#fff",
     // height: height,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
@@ -134,6 +151,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: width,
     height: height,
+    flex:1
   },
   profileContainer: {
     marginTop: 20,
@@ -143,12 +161,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 2,
+    backgroundColor:"#fff"
   },
   profileImg: {
     alignItems: "center",
     justifyContent: "center",
-    width: width / 2,
-    height: width / 2,
+    width: width / 2.1,
+    height: width / 2.1,
     borderRadius: width / 2,
   },
   instead: {
@@ -163,11 +182,13 @@ const styles = StyleSheet.create({
   userName: {
     textAlign: "center",
     fontSize: 26,
-    fontWeight: "700",
-    marginVertical: 10,
+    fontFamily:"Poppins-Bold",
+    marginVertical: 5,
   },
   userLoc: {
     textAlign: "center",
+    fontFamily:"Poppins-Regular",
+
     fontSize: 14,
     // fontWeight: "700",
     // marginVertical: 10,
@@ -188,5 +209,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginVertical: 5,
     alignItems: "flex-start",
+    fontFamily:"Poppins-Regular",
+
   },
 });
+function useFonts(fontMap) {
+  let [fontsLoaded, setFontsLoaded] = useState(false);
+  (async () => {
+    await Font.loadAsync(fontMap);
+    setFontsLoaded(true);
+  })();
+  return [fontsLoaded];
+}

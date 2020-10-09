@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
 const { width, heigth } = Dimensions.get("window");
 
 export default function Counter(props) {
@@ -23,7 +24,13 @@ export default function Counter(props) {
       props.addPerDish((val - 1) * props.cost, val - 1);
     }
   };
-
+  let [fontsLoaded] = useFonts({
+    "Poppins-Light": require('../../assets/fonts/Poppins-Light.ttf'),
+    "Poppins-Medium": require('../../assets/fonts/Poppins-Medium.ttf'),
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+    }else{
   return (
     <View style={{ alignItems: "center", justifyContent: "center" }}>
       {touched === false ? (
@@ -37,7 +44,7 @@ export default function Counter(props) {
           }}
         >
           <View style={styles.addBtnKa}>
-            <Text style={{ fontSize: 12, marginTop: 5, marginBottom: 5 }}>
+            <Text style={{ fontSize: 12, marginTop: 5, marginBottom: 5,fontFamily:"Poppins-Light" }}>
               ADD
             </Text>
           </View>
@@ -60,6 +67,7 @@ export default function Counter(props) {
             marginTop: 4,
             fontWeight: "500",
             textAlign: "center",
+            
           }}
         >
           CUSTOMIZABLE
@@ -70,7 +78,7 @@ export default function Counter(props) {
     </View>
   );
 }
-
+}
 const CounterButton = (props) => {
   return (
     <View style={{ flex: 1, flexDirection: "row" }}>
@@ -136,3 +144,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+function useFonts(fontMap) {
+  let [fontsLoaded, setFontsLoaded] = useState(false);
+  (async () => {
+    await Font.loadAsync(fontMap);
+    setFontsLoaded(true);
+  })();
+  return [fontsLoaded];
+}

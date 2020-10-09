@@ -10,7 +10,8 @@ import MessageSVG from "../../assets/Svgs/MessageSVG";
 import CheckedSVG from "../../assets/Svgs/CheckedSVG";
 import UncheckedSVG from "../../assets/Svgs/UncheckedSVG";
 const { width, height } = Dimensions.get("window");
-
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
 export default function ChefDish(props) {
   let dish = props.dish;
   const [check, setCheck] = useState(false);
@@ -32,6 +33,15 @@ export default function ChefDish(props) {
   //     price: 40,
   //     checkHai: true,
   //   },
+  let [fontsLoaded] = useFonts({
+    "Poppins-Light": require('../../assets/fonts/Poppins-Light.ttf'),
+    "Poppins-Medium": require('../../assets/fonts/Poppins-Medium.ttf'),
+    "Poppins-Bold": require('../../assets/fonts/Poppins-Bold.ttf'),
+    "Poppins-SemiBold": require('../../assets/fonts/Poppins-SemiBold.ttf'),
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+    }else{
 
   return (
     <View
@@ -51,7 +61,7 @@ export default function ChefDish(props) {
         </TouchableOpacity>
       </View>
       <View style={styles.dishInfoCarrier}>
-        <Text>{dish.name}</Text>
+        <Text style={{fontFamily:"Poppins-Regular",fontSize:14}}>{dish.name}</Text>
         <Text style={styles.dishPrice}>$ {dish.price}</Text>
         <View>
           {dish.isCustomized ? (
@@ -81,7 +91,7 @@ export default function ChefDish(props) {
     </View>
   );
 }
-
+}
 const styles = StyleSheet.create({
   opTouch: {
     // alignItems: "center",
@@ -116,17 +126,34 @@ const styles = StyleSheet.create({
     borderRadius: 7,
   },
   dishPrice: {
-    fontSize: 14,
+    fontSize: 12,
+    fontFamily:"Poppins-Regular"
+
   },
-  countVal: { fontSize: 18, color: "#282828", fontWeight: "700" },
+  countVal: { fontSize: 18, 
+    color: "#282828", 
+    fontFamily:"Poppins-Regular"
+  },
   customTit: {
     color: "#FF264D",
     marginRight: 5,
     fontSize: 12,
+    fontFamily:"Poppins-Regular"
+
   },
   customTit1: {
     color: "#C4C4C4",
     fontSize: 12,
     marginRight: 5,
+    fontFamily:"Poppins-Regular"
+
   },
 });
+function useFonts(fontMap) {
+  let [fontsLoaded, setFontsLoaded] = useState(false);
+  (async () => {
+    await Font.loadAsync(fontMap);
+    setFontsLoaded(true);
+  })();
+  return [fontsLoaded];
+}

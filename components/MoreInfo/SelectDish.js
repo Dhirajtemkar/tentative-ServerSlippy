@@ -13,12 +13,15 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native-gesture-handler";
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
 const { width, height } = Dimensions.get("window");
 import BottomSheet from "reanimated-bottom-sheet";
 import Animated from "react-native-reanimated";
 import IndividualMenu from "./IndividualMenu";
 import SearchBar from "./search/SearchBar";
 import PageBackSVG from "../../assets/Svgs/PageBackSVG";
+
 
 // main page where you can select multiple dishes from individual menu
 export default function SelectDish({ route }) {
@@ -484,7 +487,15 @@ export default function SelectDish({ route }) {
   const callCustomize = () => {
     bs.current.snapTo(0);
   };
-
+  let [fontsLoaded] = useFonts({
+    "Poppins-Light": require('../../assets/fonts/Poppins-Light.ttf'),
+    "Poppins-Medium": require('../../assets/fonts/Poppins-Medium.ttf'),
+    "Poppins-Bold": require('../../assets/fonts/Poppins-Bold.ttf'),
+    "Poppins-SemiBold": require('../../assets/fonts/Poppins-SemiBold.ttf'),
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+    }else{
   return (
     <SafeAreaView style={styles.SelectDish}>
       <BottomSheet
@@ -497,77 +508,68 @@ export default function SelectDish({ route }) {
         style={{ position: "absolute", bottom: -40 }}
         // useAddress={isCustom}
       />
-      <View style={styles.TopDesign} />
-      <View
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <View style={styles.pageHeader}>
-          <View
-            style={{
-              width: width,
-              height: 50,
-              justifyContent: "center",
-              alignItems: "flex-end",
-            }}
-          />
-          <PageBackSVG
-            onPress={() => route.params.navigation.pop()}
-            style={styles.pageBack}
-          />
-          <Text style={styles.pageTit}>{screenRoute}</Text>
-        </View>
-        <SearchBar
-          placeHolder={"Search the menu..."}
-          getSearchDone={getSearchDone}
+        
+      <View style={styles.pageHeader}>
+      
+        <PageBackSVG
+          onPress={() => route.params.navigation.pop()}
+          style={styles.pageBack}
         />
-        <View
-          style={styles.MainSelectDish}
-          contentContainerStyle={{ alignItems: "center" }}
-        >
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <FlatList
-              data={formatMenu(data)}
-              renderItem={({ item }) => {
-                if (item.empty === true) {
-                  return <View style={styles.itemInvisibel} />;
-                }
-                return (
-                  <IndividualMenu
-                    item={item}
-                    handleTotal={handleTotal}
-                    callCustomize={callCustomize}
-                    getCustomDishInfo={getCustomDishInfo}
-                    searchDone={searchDone}
-                  />
-                );
-              }}
-              numColumns={1}
-            />
-          </ScrollView>
-          <TouchableOpacity
-            style={styles.ViewCartBtn}
-            onPress={() => ScreenWiseRoute()}
-          >
-            <View style={styles.btnActBot}>
-              <Text style={{ fontSize: 14, lineHeight: 18, color: "#fff" }}>
-                ${total.toFixed(2)}
-              </Text>
-              <Text style={styles.plsTax}>PLUS TAXES</Text>
-            </View>
-            <View style={styles.baseMainBtn}>
-              <Text style={styles.BtnText2}>ORDER DETAILS</Text>
-              <Image source={require("../../assets/whiteArrow.png")} />
-            </View>
-          </TouchableOpacity>
+        <Text style={styles.pageTit}>{screenRoute}</Text>
+      </View>
+      <SearchBar
+        placeHolder={"Search the menu..."}
+        getSearchDone={getSearchDone}
+      />
+      <View
+        style={styles.MainSelectDish}
+        contentContainerStyle={{}}
+      >
+        <View style={{height:height-height/10-height/12-height/9-20,
+          width:width,
+          }}>
+          <FlatList
+            data={formatMenu(data)}
+            renderItem={({ item }) => {
+              if (item.empty === true) {
+                return <View style={styles.itemInvisibel} />;
+              }
+              return (
+                <IndividualMenu
+                  item={item}
+                  handleTotal={handleTotal}
+                  callCustomize={callCustomize}
+                  getCustomDishInfo={getCustomDishInfo}
+                  searchDone={searchDone}
+                />
+              );
+            }}
+            numColumns={1}
+          />
         </View>
+        <View style={{width:width,alignItems:"center"}}>
+        <TouchableOpacity
+          style={styles.ViewCartBtn}
+          onPress={() => ScreenWiseRoute()}
+        >
+          <View style={styles.btnActBot}>
+            <Text style={{ fontSize: 14, lineHeight: 18, color: "#fff",fontFamily:"Poppins-Regular" }}>
+              ${total.toFixed(2)}
+            </Text>
+            <Text style={styles.plsTax}>PLUS TAXES</Text>
+          </View>
+          <View style={styles.baseMainBtn}>
+            <Text style={styles.BtnText2}>ORDER DETAILS</Text>
+            <Image source={require("../../assets/whiteArrow.png")} />
+          </View>
+        </TouchableOpacity>
+        </View>
+      
       </View>
     </SafeAreaView>
   );
 }
-
+}
 const styles = StyleSheet.create({
   SelectDish: {
     flex: 1,
@@ -576,21 +578,13 @@ const styles = StyleSheet.create({
   TopDesign: {
     position: "absolute",
     flex: 1,
-    top: -233,
-    left: -103,
-    right: 0,
-    width: 574,
-    height: 574,
-    borderRadius: 574 / 2,
-    backgroundColor: "#FF264D",
+    marginTop:0
+    
   },
   MainSelectDish: {
-    marginTop: -35,
-    paddingTop: 35,
+    
     width: width,
-    height: width * 1.85,
     backgroundColor: "#fff",
-    alignItems: "center",
   },
   itemInvisibel: {
     backgroundColor: "transparent",
@@ -598,8 +592,8 @@ const styles = StyleSheet.create({
   },
   ViewCartBtn: {
     elevation: 4,
-    width: width - 60,
-    height: width / 6,
+    width: width - 80,
+    height: width / 7,
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
@@ -615,6 +609,8 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 18,
     paddingRight: 5,
+    fontFamily:"Poppins-Regular"
+
   },
   BottomAdd: {
     backgroundColor: "#FFE4E9",
@@ -649,6 +645,8 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     color: "#fff",
     marginLeft: 5,
+    fontFamily:"Poppins-Regular"
+
   },
   btnActBot: {
     flex: 1,
@@ -660,17 +658,24 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#fff",
     textAlign: "center",
+    fontFamily:"Poppins-Regular"
+
   },
   pageHeader: {
     flexDirection: "row",
     width: width,
-    height: 50,
-    justifyContent: "center",
-    alignItems: "flex-end",
+    height: height/12,
+    alignItems: "center",
+    justifyContent:"center",
+    borderBottomLeftRadius:20,
+    borderBottomRightRadius:20,
+    backgroundColor:"#ff264d",
+    position:"absolute",
+    marginTop:0
   },
   pageBack: {
     position: "absolute",
-    left: width / 15,
+    left: 10,
     // alignItems: "center",
     // marginTop: 20,
     // paddingLeft: width / 10,
@@ -681,5 +686,14 @@ const styles = StyleSheet.create({
     fontSize: 24,
     // lineHeight: 36,
     color: "#fff",
+    fontFamily:"Poppins-Regular"
   },
 });
+function useFonts(fontMap) {
+  let [fontsLoaded, setFontsLoaded] = useState(false);
+  (async () => {
+    await Font.loadAsync(fontMap);
+    setFontsLoaded(true);
+  })();
+  return [fontsLoaded];
+}

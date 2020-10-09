@@ -55,6 +55,7 @@ export default function App() {
       // }
       // dispatch({ type: "LOGOUT" });
       setUserToken(null);
+      setUserToken1('dchjdb');
     },
   }));
 

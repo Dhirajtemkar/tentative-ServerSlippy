@@ -46,7 +46,7 @@ const All=({orderDetail,navigation,pageRoutedFrom})=>{
         return (
           item.orderState=="new"||item.orderState=="ready"||item.orderState=="prep"?
 
-          <View style={styles.tabbContainer}>
+          <TouchableOpacity style={styles.tabbContainer}>
             <View style={styles.numberContainer}>
             <Text style={styles.numText}>
                     {item.tableNo}
@@ -63,11 +63,11 @@ const All=({orderDetail,navigation,pageRoutedFrom})=>{
               <Text style={styles.dishText}>{item.code}/ ${item.total}</Text>
 
             </TouchableOpacity>
-            <TouchableOpacity style={{marginLeft:windowWidth*0.8,justifyContent:"center"}} > 
+            <View style={{marginLeft:windowWidth*0.8,justifyContent:"center"}} > 
               <Arrow/>
-            </TouchableOpacity>
-            
             </View>
+            
+            </TouchableOpacity>
             :
             null
         );

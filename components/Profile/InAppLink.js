@@ -4,9 +4,19 @@ import {
   TouchableHighlight,
   TouchableOpacity,
 } from "react-native-gesture-handler";
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
 const { width, height } = Dimensions.get("window");
 
 export default function InAppLink({ image, text }) {
+  let [fontsLoaded] = useFonts({
+    "Poppins-Regular": require('../../assets/fonts/Poppins-Regular.ttf'),
+    "Poppins-Medium": require('../../assets/fonts/Poppins-Medium.ttf'),
+    "Poppins-Bold": require('../../assets/fonts/Poppins-Bold.ttf'),
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+    }else{
   return (
     <View>
       <TouchableOpacity style={styles.inApp}>
@@ -18,7 +28,7 @@ export default function InAppLink({ image, text }) {
     </View>
   );
 }
-
+}
 const styles = StyleSheet.create({
   inApp: {
     flexDirection: "row",
@@ -48,5 +58,15 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     fontSize: 18,
     justifyContent: "center",
+    fontFamily:"Poppins-Regular",
+
   },
 });
+function useFonts(fontMap) {
+  let [fontsLoaded, setFontsLoaded] = useState(false);
+  (async () => {
+    await Font.loadAsync(fontMap);
+    setFontsLoaded(true);
+  })();
+  return [fontsLoaded];
+}

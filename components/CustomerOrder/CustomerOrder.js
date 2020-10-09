@@ -4,7 +4,7 @@ export let CustomerOrder = [
     customer: "Dhiraj Temkar",
     dishSelected: [
       {
-        id: 2,
+        id: 0,
         name: "Mutton Biryani",
         count: 2,
         total: 80,
@@ -29,7 +29,7 @@ export let CustomerOrder = [
         checkHai: true,
       },
       {
-        id: 4,
+        id: 2,
         name: "Chicken Fry",
         count: 1,
         total: 50,
@@ -71,7 +71,7 @@ export let CustomerOrder = [
     customer: "Dhiraj Temkar",
     dishSelected: [
       {
-        id: 2,
+        id: 0,
         name: "Mutton Biryani",
         count: 2,
         total: 80,
@@ -96,7 +96,7 @@ export let CustomerOrder = [
         checkHai: true,
       },
       {
-        id: 4,
+        id: 2,
         name: "Chicken Fry",
         count: 1,
         total: 50,
@@ -190,11 +190,11 @@ export let CustomerOrder = [
     totalAmount: 250,
   },
   {
-    tableNo: 25,
+    tableNo: 7,
     customer: "Dhiraj Temkar",
     dishSelected: [
       {
-        id: 2,
+        id: 0,
         name: "Mutton Biryani",
         count: 2,
         total: 80,
@@ -209,7 +209,7 @@ export let CustomerOrder = [
       },
       {
         id: 1,
-        name: "McAloBurger",
+        name: "Mc Aloo Burger",
         count: 3,
         total: 60,
         isCustomized: false,
@@ -219,7 +219,7 @@ export let CustomerOrder = [
         checkHai: true,
       },
       {
-        id: 4,
+        id: 2,
         name: "Chicken Fry",
         count: 1,
         total: 50,
@@ -243,6 +243,39 @@ export let CustomerOrder = [
         price: 10,
         checkHai: true,
       },
+      {
+        id: 4,
+        name: "Roti",
+        count: 1,
+        total: 50,
+        isCustomized: false,
+        customOptions: {},
+        rating: 4,
+        price: 50,
+        checkHai: true,
+      },
+      {
+        id: 5,
+        name: "Chicken Tikka",
+        count: 1,
+        total: 50,
+        isCustomized: false,
+        customOptions: {},
+        rating: 4,
+        price: 50,
+        checkHai: true,
+      },
+      {
+        id: 2,
+        name: "Chicken Malai",
+        count: 1,
+        total: 50,
+        isCustomized: false,
+        customOptions: {},
+        rating: 4,
+        price: 50,
+        checkHai: true,
+      },
     ],
     id: "2",
     total: 210,
@@ -261,7 +294,7 @@ export let CustomerOrder = [
     customer: "Dhiraj Temkar",
     dishSelected: [
       {
-        id: 2,
+        id: 0,
         name: "Mutton Biryani",
         count: 2,
         total: 80,
@@ -286,7 +319,7 @@ export let CustomerOrder = [
         checkHai: true,
       },
       {
-        id: 4,
+        id: 2,
         name: "Chicken Fry",
         count: 1,
         total: 50,
@@ -328,7 +361,7 @@ export let CustomerOrder = [
     customer: "Dhiraj Temkar",
     dishSelected: [
       {
-        id: 2,
+        id: 0,
         name: "Mutton Biryani",
         count: 2,
         total: 80,
@@ -353,7 +386,7 @@ export let CustomerOrder = [
         checkHai: true,
       },
       {
-        id: 4,
+        id: 2,
         name: "Chicken Fry",
         count: 1,
         total: 50,
@@ -395,7 +428,7 @@ export let CustomerOrder = [
     customer: "Dhiraj Temkar",
     dishSelected: [
       {
-        id: 2,
+        id: 0,
         name: "Mutton Biryani",
         count: 2,
         total: 80,
@@ -420,7 +453,7 @@ export let CustomerOrder = [
         checkHai: true,
       },
       {
-        id: 4,
+        id: 2,
         name: "Chicken Fry",
         count: 1,
         total: 50,
@@ -462,7 +495,7 @@ export let CustomerOrder = [
     customer: "Dhiraj Temkar",
     dishSelected: [
       {
-        id: 2,
+        id: 0,
         name: "Mutton Biryani",
         count: 2,
         total: 80,
@@ -487,7 +520,7 @@ export let CustomerOrder = [
         checkHai: true,
       },
       {
-        id: 4,
+        id: 2,
         name: "Chicken Fry",
         count: 1,
         total: 50,
@@ -585,7 +618,7 @@ export let CustomerOrder = [
     customer: "Dhiraj Temkar",
     dishSelected: [
       {
-        id: 2,
+        id: 0,
         name: "Mutton Biryani",
         count: 2,
         total: 80,
@@ -610,7 +643,7 @@ export let CustomerOrder = [
         checkHai: true,
       },
       {
-        id: 4,
+        id: 2,
         name: "Chicken Fry",
         count: 1,
         total: 50,

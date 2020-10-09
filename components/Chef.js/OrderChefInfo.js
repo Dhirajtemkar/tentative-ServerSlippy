@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   Dimensions,
-  ScrollView,
   TouchableOpacity,
 } from "react-native";
 import PageBackSVG from "../../assets/Svgs/PageBackSVG";
@@ -12,9 +11,11 @@ import ChefDish from "./ChefDish";
 import BottomSheet from "reanimated-bottom-sheet";
 import Animated from "react-native-reanimated";
 import StatusChangeBtn from "./StatusChangeBtn";
-import { TouchableHighlight } from "react-native-gesture-handler";
+import { TouchableHighlight,ScrollView} from "react-native-gesture-handler";
 import { CommonActions } from "@react-navigation/native";
 const { width, height } = Dimensions.get("window");
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
 
 export default function OrderChefInfo({ route }) {
   const order = route.params.order;
@@ -75,11 +76,11 @@ export default function OrderChefInfo({ route }) {
   const renderChefConfiramtions = (props) => {
     return (
       <View style={styles.BottomAdd}>
-        <View style={{ flex: 1, paddingLeft: 20 }}>
-          <Text style={{ color: "#FF264D", fontWeight: "700" }}>
+        <View style={{ flex: 1, paddingLeft: 20,marginRight:110 }}>
+          <Text style={{ color: "#FF264D", fontFamily:"Poppins-SemiBold",fontSize: 12}}>
             Ordering for
           </Text>
-          <Text style={{ color: "#282828", fontWeight: "700", fontSize: 18 }}>
+          <Text style={{ color: "#282828", fontFamily:"Poppins-SemiBold", fontSize: 14 }}>
             {order.customer}
           </Text>
         </View>
@@ -88,7 +89,15 @@ export default function OrderChefInfo({ route }) {
       </View>
     );
   };
-
+  let [fontsLoaded] = useFonts({
+    "Poppins-Light": require('../../assets/fonts/Poppins-Light.ttf'),
+    "Poppins-Medium": require('../../assets/fonts/Poppins-Medium.ttf'),
+    "Poppins-Bold": require('../../assets/fonts/Poppins-Bold.ttf'),
+    "Poppins-SemiBold": require('../../assets/fonts/Poppins-SemiBold.ttf'),
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+    }else{
   return (
     <View style={{ alignItems: "center", backgroundColor: "#fff" }}>
       {/**/}
@@ -128,16 +137,19 @@ export default function OrderChefInfo({ route }) {
     </View>
   );
 }
-
+}
 const styles = StyleSheet.create({
   topDesign: {
-    backgroundColor: "#FF264D",
-    width: width,
-    height: width / 5.5,
     position: "absolute",
-    borderBottomRightRadius: 20,
+    flex: 1,
+    top: 0,
+    width: width,
+    height: height / 10,
     borderBottomLeftRadius: 20,
-    elevation: 3,
+    borderBottomRightRadius: 20,
+    backgroundColor: "#FF264D",
+    alignItems: "center",
+    
   },
   pageHeader: {
     flexDirection: "row",
@@ -155,11 +167,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 24,
     color: "#fff",
+    fontFamily:"Poppins-SemiBold"
   },
   belowTit: {
     color: "#282828",
-    fontSize: 24,
-    fontWeight: "700",
+    fontSize: 18,
+    fontFamily:"Poppins-SemiBold"
   },
   topTit: {
     width: width,
@@ -167,7 +180,7 @@ const styles = StyleSheet.create({
     paddingTop: width / 20,
     marginBottom: width / 15,
   },
-  tableTitno: { color: "#282828", fontSize: 18, fontWeight: "700" },
+  tableTitno: { color: "#282828", fontSize: 12, fontFamily:"Poppins-SemiBold" },
   BottomAdd: {
     backgroundColor: "#FFE4E9",
     width: width,
@@ -186,3 +199,11 @@ const styles = StyleSheet.create({
     // bottom: 0,
   },
 });
+function useFonts(fontMap) {
+  let [fontsLoaded, setFontsLoaded] = useState(false);
+  (async () => {
+    await Font.loadAsync(fontMap);
+    setFontsLoaded(true);
+  })();
+  return [fontsLoaded];
+}

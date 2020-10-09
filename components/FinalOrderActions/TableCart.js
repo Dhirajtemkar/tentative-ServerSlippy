@@ -6,16 +6,17 @@ import {
   StyleSheet,
   SafeAreaView,
   StatusBar,
-  ScrollView,
   FlatList,
 } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity,ScrollView } from "react-native-gesture-handler";
 import RightArrowSVG from "../../assets/Svgs/RightArrowSVG";
 import BottomSheet from "reanimated-bottom-sheet";
 import Animated from "react-native-reanimated";
 import PromoToggle from "./PromoToggle";
 import SearchBar from "../MoreInfo/search/SearchBar";
 import Dishes from "../MoreInfo/Dishes";
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
 const { width, height } = Dimensions.get("window");
 
 export default function TableCart({ route }) {
@@ -74,7 +75,7 @@ export default function TableCart({ route }) {
     });
     setPromos({ ...promos, promos: newPromo });
   };
-
+  
   const renderPromoChange = () => {
     return (
       <View style={styles.BottomAdd}>
@@ -135,10 +136,10 @@ export default function TableCart({ route }) {
   const [callBillSplit, setcallBillSplit] = useState(false);
   const manageBottomsheet = () => {
     if (callPromo === true) {
-      setHtSheet(height - 150);
+      setHtSheet(height-height/12-height/10+20);
       return renderPromoChange();
     } else if (callBillSplit === true) {
-      setHtSheet(width / 1.5);
+      setHtSheet(width / 2);
       return renderSplitBillBtn();
     }
   };
@@ -154,6 +155,16 @@ export default function TableCart({ route }) {
       tableNo: route.params.tableNo,
     });
   };
+  let [fontsLoaded] = useFonts({
+    "Poppins-Light": require('../../assets/fonts/Poppins-Light.ttf'),
+    "Poppins-Medium": require('../../assets/fonts/Poppins-Medium.ttf'),
+    "Poppins-Regular": require('../../assets/fonts/Poppins-Regular.ttf'),
+    "Poppins-Bold": require('../../assets/fonts/Poppins-Bold.ttf'),
+    "Poppins-SemiBold": require('../../assets/fonts/Poppins-SemiBold.ttf'),
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+    }else{
   return (
     <SafeAreaView style={styles.mainTableCart}>
       <BottomSheet
@@ -174,10 +185,8 @@ export default function TableCart({ route }) {
           <Text style={styles.hotNameBelow}>{Order.hotelName}</Text>
           <Text style={styles.tableNo}>Table {Order.tableNo}</Text>
         </View>
-        <ScrollView
-          style={{ marginTop: 3, width: width, height: width / 1.3 }}
-          // showsVerticalScrollIndicator={false}
-        >
+        <View style={{height:height-(height/10)-(height/5)-(height/7.5)-(height/12)-(height/8)-50,marginTop:5}}>
+        
           {/* todo: add the dishes to be displayed on this page*/}
           <FlatList
             data={Order.dishSelected}
@@ -197,10 +206,10 @@ export default function TableCart({ route }) {
             }}
             numColumns={1}
           />
-        </ScrollView>
+        </View>
       </View>
       <View style={styles.bottomContent}>
-        <View style={{ width: width, height: width / 1.55 }}>
+        <View style={{ width: width, height: height / 3,}}>
           <TouchableOpacity
             style={styles.promoBtn}
             onPress={() => {
@@ -259,7 +268,7 @@ export default function TableCart({ route }) {
     </SafeAreaView>
   );
 }
-
+}
 const styles = StyleSheet.create({
   mainTableCart: {
     backgroundColor: "#fff",
@@ -271,7 +280,7 @@ const styles = StyleSheet.create({
     flex: 1,
     top: 0,
     width: width,
-    height: width / 5,
+    height: height / 10,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     backgroundColor: "#FF264D",
@@ -286,18 +295,19 @@ const styles = StyleSheet.create({
   pageTit: {
     flex: 1,
     textAlign: "center",
-    fontSize: 24,
+    fontSize: height/35,
     color: "#fff",
+    fontFamily:"Poppins-Medium",
+    marginTop:10
     // marginLeft: -35,
-    fontWeight: "700",
   },
-  mainBelowTop: { marginTop: width / 5, alignItems: "center" },
+  mainBelowTop: { marginTop:height/10, alignItems: "center",flex:1 },
   pageTitBelow: { width: width, paddingHorizontal: 20, marginVertical: 0 },
-  titBelow: { fontSize: 22, fontWeight: "700", color: "#282828" },
-  hotNameBelow: { fontSize: 18, fontWeight: "400", color: "#FF264D" },
+  titBelow: { fontSize: 18, fontFamily:"Poppins-SemiBold", color: "#282828" },
+  hotNameBelow: { fontSize: 16, fontFamily: "Poppins-SemiBold", color: "#FF264D" },
   tableNo: {
-    fontSize: 18,
-    fontWeight: "700",
+    fontSize: 16,
+    fontFamily:"Poppins-SemiBold",
     color: "#282828",
     // marginLeft: 20,
     alignItems: "baseline",
@@ -320,9 +330,9 @@ const styles = StyleSheet.create({
   },
   totalBottom: {
     position: "absolute",
-    bottom: 0,
+    bottom: height/7.5-30,
     width: width,
-    height: width / 1.75,
+    height: height / 5,
     backgroundColor: "#F4F4F4",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
@@ -333,11 +343,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: width,
-    height: width / 4,
+    height: height / 7.5,
     backgroundColor: "#FFE4E9",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    padding: 30,
+    padding: 20,
     flexDirection: "row",
   },
   eachTotalBottom: {
@@ -347,16 +357,16 @@ const styles = StyleSheet.create({
   },
   totalBottomLeft: { flex: 0.5, alignItems: "flex-start" },
   totalBottomRight: { flex: 0.5, alignItems: "flex-end" },
-  rightTotalText: { fontWeight: "700", color: "#A9A8A8", fontSize: 14 },
-  totalBottomNum: { fontSize: 16, color: "#282828" },
-  totalLeftFinal: { fontSize: 22, fontWeight: "700", color: "#282828" },
-  totalRightFinal: { fontSize: 22, fontWeight: "600", color: "#FF264D" },
-  procLeftTop: { fontSize: 12, color: "#FF264D", fontWeight: "700" },
+  rightTotalText: { fontFamily:"Poppins-SemiBold", color: "#A9A8A8", fontSize: 14 },
+  totalBottomNum: { fontSize: 14, color: "#282828",fontFamily:"Poppins-SemiBold" },
+  totalLeftFinal: { fontSize: 16, fontFamily:"Poppins-Bold", color: "#282828" },
+  totalRightFinal: { fontSize: 16, fontFamily:"Poppins-Bold", color: "#FF264D" },
+  procLeftTop: { fontSize: 14, color: "#FF264D", fontFamily:"Poppins-Bold" },
   procLeftBot: {
-    fontSize: 18,
+    fontSize: 16,
     color: "#4E4A4A",
-    fontWeight: "700",
-    marginTop: 10,
+    fontFamily:"Poppins-Bold",
+    marginTop: 2,
   },
   bottomPayBtn: {
     backgroundColor: "#FF264D",
@@ -369,7 +379,7 @@ const styles = StyleSheet.create({
   },
   botPayBtnTit: {
     color: "#fff",
-    fontWeight: "700",
+    fontFamily:"Poppins-SemiBold",
     fontSize: 18,
     marginRight: 10,
   },
@@ -409,6 +419,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderRadius: 50,
     elevation: 3,
+    fontFamily:"Poppins-Light"
   },
   secondSheet: {
     width: width,
@@ -420,7 +431,7 @@ const styles = StyleSheet.create({
     borderRadius: 35,
   },
   secondSheetBtn: {
-    width: width - 80,
+    width: width - 100,
     height: width / 7,
     backgroundColor: "#FF264D",
     alignItems: "center",
@@ -428,5 +439,13 @@ const styles = StyleSheet.create({
     marginVertical: 7,
     borderRadius: width / 6,
   },
-  secondBtnText: { color: "#fff", fontWeight: "700", fontSize: 18 },
+  secondBtnText: { color: "#fff", fontFamily:"Poppins-Medium", fontSize: 18 },
 });
+function useFonts(fontMap) {
+  let [fontsLoaded, setFontsLoaded] = useState(false);
+  (async () => {
+    await Font.loadAsync(fontMap);
+    setFontsLoaded(true);
+  })();
+  return [fontsLoaded];
+}

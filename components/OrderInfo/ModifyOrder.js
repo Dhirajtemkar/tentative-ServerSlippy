@@ -13,6 +13,8 @@ import PageBackSVG from "../../assets/Svgs/PageBackSVG";
 import Dishes from "../MoreInfo/Dishes";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import BottomActions from "./BottomActions";
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
 const { width, height } = Dimensions.get("window");
 
 export default function ModifyOrder({ route }) {
@@ -120,6 +122,13 @@ export default function ModifyOrder({ route }) {
   //   };
 
   const orderData = route.params.WaiterOrderChecked;
+  let [fontsLoaded] = useFonts({
+    "Poppins-Medium": require('../../assets/fonts/Poppins-Medium.ttf'),
+    "Poppins-Bold": require('../../assets/fonts/Poppins-Bold.ttf'),
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+    }else{
   return (
     <SafeAreaView style={styles.SelectDish}>
       <View style={styles.TopDesign}>
@@ -161,7 +170,7 @@ export default function ModifyOrder({ route }) {
     </SafeAreaView>
   );
 }
-
+}
 const styles = StyleSheet.create({
   SelectDish: {
     flex: 1,
@@ -189,6 +198,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 24,
     color: "#fff",
+    fontFamily:"Poppins-Medium",
+    marginTop:10
   },
   mainOrderPage: {
     marginTop: width / 5,
@@ -201,12 +212,12 @@ const styles = StyleSheet.create({
   },
   tit: {
     fontSize: 20,
-    fontWeight: "700",
+    fontFamily:"Poppins-Bold"
   },
   tit1: {
     fontSize: 18,
-    fontWeight: "700",
     marginTop: 10,
+    fontFamily:"Poppins-Bold"
   },
   BottomActions: {
     width: width,
@@ -222,3 +233,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
   },
 });
+function useFonts(fontMap) {
+  let [fontsLoaded, setFontsLoaded] = useState(false);
+  (async () => {
+    await Font.loadAsync(fontMap);
+    setFontsLoaded(true);
+  })();
+  return [fontsLoaded];
+}

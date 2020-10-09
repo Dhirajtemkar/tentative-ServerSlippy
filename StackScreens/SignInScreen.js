@@ -38,10 +38,7 @@ const SignInScreen=({navigation})=>{
     const loginHandle=(username, password) =>{
         signIn(username, password)
     }
-
-    
-
-        
+      
     return (
         
         <ImageBackground source= {require('../components/img/background.png')} style={styles.image}>
@@ -55,11 +52,18 @@ const SignInScreen=({navigation})=>{
                 
             <View style={styles.ipScreen} >
                 <User />
-                <TextInput style ={styles.inputBox} placeholder="Username" placeholderTextColor="#000000" onChangeText={(val) => textInputChange(val)} />
+                <TextInput style ={styles.inputBox}
+                 placeholder="Username"
+                 placeholderTextColor="#2699fb"
+                  onChangeText={(val) => textInputChange(val)} />
             </View>
             <View style={styles.ipScreen} >
             <Pass />
-                <TextInput style ={styles.inputBox} placeholder="Password" placeholderTextColor="#000000" secureTextEntry={true}  onChangeText={(val) => handlePasswordChange(val)}  />
+                <TextInput style ={styles.inputBox} 
+                placeholder="Password" 
+                placeholderTextColor="#2699fb" 
+                secureTextEntry={true}  
+                onChangeText={(val) => handlePasswordChange(val)}  />
             </View>
             <TouchableOpacity  style={styles.button} onPress={()=>{loginHandle(data.username, data.password)}}>
                 <Text style={styles.continueText}>Continue</Text>
@@ -88,14 +92,11 @@ const styles=StyleSheet.create({
         position:"absolute"       
     },
     logo:{
-        width: 125,
-        height: 184,
-        marginTop: windowHeight*0.15,
+        marginTop: windowHeight*0.1,
         
     },
     tagline:{
-        width: 289,
-        height: 55,
+       
         marginTop: windowHeight*0.05,
         fontFamily: "Roboto",
         fontStyle: "normal",
@@ -139,7 +140,6 @@ const styles=StyleSheet.create({
         marginTop: windowHeight*0.08,
         backgroundColor:"#ffffff",
         borderRadius:39,
-        textAlign:"center",
         alignItems:"center",
         justifyContent:"center"
 
@@ -153,7 +153,8 @@ const styles=StyleSheet.create({
         justifyContent:"center",
         alignContent:"center",
         textAlign: "center",
-        color: '#000000'
+        color: '#707070',
+        fontWeight:"bold"
 
     },
 

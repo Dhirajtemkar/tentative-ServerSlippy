@@ -3,7 +3,7 @@ import Svg,{Path} from 'react-native-svg'
 
 const PersonIcon=(props)=>{
     return(
-        <Svg width={29} height={31} viewBox="0 0 29 31" fill="none" {...props}>
+        <Svg width={25} height={27} viewBox="0 0 29 31" fill="none" {...props}>
       <Path
         d="M14.616 19.123a9.354 9.354 0 100-18.709 9.354 9.354 0 000 18.71z"
         fill="#707070"

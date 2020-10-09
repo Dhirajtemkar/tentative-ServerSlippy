@@ -27,6 +27,8 @@ const SplitAmountScreen = ({ route, navigation }) => {
 
   let [fontsLoaded] = useFonts({
     "Poppins-Light": require("../../assets/fonts/Poppins-Light.ttf"),
+    "Poppins-Medium": require('../../assets/fonts/Poppins-Medium.ttf'),
+
   });
 
   if (!fontsLoaded) {
@@ -39,24 +41,24 @@ const SplitAmountScreen = ({ route, navigation }) => {
           borderBottomWidth: 2,
           elevation: 2,
           borderBottomColor: "#a9a9a9",
-          top: 0.03 * windowHeight,
+          top: 5,
         }}
       >
         <View
           style={{
-            marginTop: windowHeight * 0.023,
+            marginTop:5,
             marginHorizontal: windowWidth * 0.05,
-            marginBottom: windowHeight * 0.02,
+            marginBottom: 5,
             padding: 5,
           }}
         >
-          <View style={{ flex: 1, flexDirection: "row", marginBottom: 10 }}>
+          <View style={{ flex: 1, flexDirection: "row", marginBottom: 5 }}>
             <PersonIcon />
             <Text
               style={{
                 paddingLeft: 10,
-                fontFamily: "Poppins-Light",
-                fontSize: 20,
+                fontFamily: "Poppins-Regular",
+                fontSize: 16,
                 lineHeight: 30,
               }}
             >
@@ -93,7 +95,7 @@ const SplitAmountScreen = ({ route, navigation }) => {
                 <View></View>
               )}
               {route.params.totalPercentFinal ? (
-                <Text>Percent Split</Text>
+                <Text style={{fontFamily:"Poppins-Light"}}>Percent Split</Text>
               ) : (
                 <View></View>
               )}
@@ -132,7 +134,7 @@ const SplitAmountScreen = ({ route, navigation }) => {
       </View>
       <Text
         style={{
-          fontFamily: "Poppins-Light",
+          fontFamily: "Poppins-Medium",
           color: "#000000",
           fontSize: 18,
           left: 20,
@@ -143,7 +145,7 @@ const SplitAmountScreen = ({ route, navigation }) => {
       </Text>
       <Text
         style={{
-          fontFamily: "Poppins-Light",
+          fontFamily: "Poppins-Medium",
           color: "#ff264d",
           fontSize: 18,
           left: 20,
@@ -151,15 +153,19 @@ const SplitAmountScreen = ({ route, navigation }) => {
       >
         Table 7
       </Text>
+      <View style={{height:windowHeight/10-windowHeight/8-windowHeight/10+10,borderBottomWidth:2,borderColor:"#777777",marginTop:10}}>
       <FlatList
         data={abc}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         extraData={selectedId}
       />
+      </View>
       <View
         style={{
-          height: windowHeight * 0.16,
+          height: windowHeight/8,
+          position:"absolute",
+          width:windowWidth,
           bottom: 0,
           backgroundColor: "#f9eae4",
           borderTopLeftRadius: 20,
@@ -167,6 +173,7 @@ const SplitAmountScreen = ({ route, navigation }) => {
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
+          paddingTop:15
         }}
       >
         <View
@@ -212,9 +219,9 @@ const SplitAmountScreen = ({ route, navigation }) => {
         <TouchableOpacity style={styles.billText}>
           <Text
             style={{
-              fontFamily: "Poppins-Light",
+              fontFamily: "Poppins-Regular",
               color: "#ffffff",
-              fontSize: 22,
+              fontSize: 20,
             }}
           >
             Bill This
@@ -228,11 +235,13 @@ const SplitAmountScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   TitleContainer: {
     width: windowWidth,
-    height: windowHeight * 0.1,
+    height: windowHeight/10,
     paddingTop: windowHeight * 0.05,
     alignItems: "center",
     backgroundColor: "#ff264d",
     flexDirection: "row",
+    borderBottomLeftRadius:20,
+    borderBottomRightRadius:20
   },
   title: {
     fontFamily: "Roboto",
@@ -272,12 +281,12 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   billText: {
-    height: windowHeight * 0.07,
-    width: windowWidth * 0.35,
+    height: windowHeight * 0.06,
+    width: windowWidth * 0.3,
     backgroundColor: "#ff264d",
     marginTop: windowHeight * 0.002,
     marginRight: windowWidth * 0.06,
-    borderRadius: 20,
+    borderRadius: 15,
     justifyContent: "center",
     alignItems: "center",
   },

@@ -109,12 +109,12 @@ const styles = StyleSheet.create({
   ContainerTwo: {
     flex: 1,
     backgroundColor: "#ff264d",
-    borderBottomRightRadius: 40,
-    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 20,
   },
   titleContainer: {
     width: windowWidth,
-    height: windowWidth / 2.35,
+    height: windowHeight / 4.3,
     borderBottomLeftRadius: windowWidth / 9,
     borderBottomRightRadius: windowWidth / 9,
     backgroundColor: "#FF264D",
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   },
 
   statusContainer: {
-    height: windowHeight,
+    height: windowHeight/17,
   },
 
   tabContainer: {
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   stateList: {
-    height:windowHeight/1.74,
+    height:windowHeight-(windowHeight/4.3)-(windowHeight/12)-(windowHeight/17)-5,
     flexDirection: "row",
     backgroundColor: "#e5e5e5",
     borderBottomColor: 5,

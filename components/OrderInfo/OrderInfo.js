@@ -6,13 +6,14 @@ import {
   Dimensions,
   StyleSheet,
   StatusBar,
-  ScrollView,
   FlatList,
 } from "react-native";
 import PageBackSVG from "../../assets/Svgs/PageBackSVG";
 import Dishes from "../MoreInfo/Dishes";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
 import BottomActions from "./BottomActions";
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
 const { width, height } = Dimensions.get("window");
 
 export default function OrderInfo({ route }) {
@@ -130,7 +131,15 @@ export default function OrderInfo({ route }) {
       });
     }
   };
-
+  let [fontsLoaded] = useFonts({
+    "Poppins-Light": require('../../assets/fonts/Poppins-Light.ttf'),
+    "Poppins-Medium": require('../../assets/fonts/Poppins-Medium.ttf'),
+    "Poppins-Bold": require('../../assets/fonts/Poppins-Bold.ttf'),
+    "Poppins-SemiBold": require('../../assets/fonts/Poppins-SemiBold.ttf'),
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+    }else{
   return (
     <SafeAreaView style={styles.SelectDish}>
       <View style={styles.TopDesign}>
@@ -148,7 +157,7 @@ export default function OrderInfo({ route }) {
           <Text style={styles.tit1}>Table: {route.params.tableNo}</Text>
         </View>
         <ScrollView
-          style={{ height: width * 0.9, marginTop: 10 }}
+          style={{ height:height-(height/5.5)-(height/10)-(height/12)-10, marginTop: 10 }}
           showsVerticalScrollIndicator={false}
         >
           {route.params.orderState === "extended" ? (
@@ -232,6 +241,7 @@ export default function OrderInfo({ route }) {
     </SafeAreaView>
   );
 }
+}
 
 const styles = StyleSheet.create({
   SelectDish: {
@@ -244,7 +254,7 @@ const styles = StyleSheet.create({
     flex: 1,
     top: 0,
     width: width,
-    height: width / 5,
+    height: height / 10,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     backgroundColor: "#FF264D",
@@ -258,11 +268,13 @@ const styles = StyleSheet.create({
   pageTit: {
     flex: 1,
     textAlign: "center",
-    fontSize: 24,
+    fontSize: height/35,
     color: "#fff",
+    fontFamily:"Poppins-Medium",
+    marginTop:10
   },
   mainOrderPage: {
-    marginTop: width / 5,
+    marginTop:height/10-5,
     alignItems: "center",
   },
   topTit: {
@@ -271,19 +283,19 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
   },
   tit: {
-    fontSize: 20,
-    fontWeight: "700",
+    fontSize: 18,
+    fontFamily:"Poppins-SemiBold"
   },
   tit1: {
-    fontSize: 18,
-    fontWeight: "700",
+    fontSize: 16,
     marginTop: 10,
+    fontFamily:"Poppins-SemiBold"
   },
   BottomActions: {
     width: width,
     position: "absolute",
     bottom: 0,
-    // height: width / 2,
+    height: height / 5,
     backgroundColor: "#FFE4E9",
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
@@ -291,14 +303,23 @@ const styles = StyleSheet.create({
     shadowColor: "grey",
     shadowRadius: 10,
     shadowOpacity: 0.5,
-    paddingTop: width / 20,
+    paddingTop: width / 35,
+    marginBottom:0
   },
   extendTit: {
     margin: 20,
     color: "#FF264D",
-    fontWeight: "700",
     textDecorationLine: "underline",
     textDecorationColor: "#FF264D",
     fontSize: 16,
+    fontFamily:"Poppins-Light"
   },
 });
+function useFonts(fontMap) {
+  let [fontsLoaded, setFontsLoaded] = useState(false);
+  (async () => {
+    await Font.loadAsync(fontMap);
+    setFontsLoaded(true);
+  })();
+  return [fontsLoaded];
+}
